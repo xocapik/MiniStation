@@ -1,7 +1,9 @@
 // Targets, the things that actually get shot!
 /obj/item/target
-	name = "shooting target"
-	desc = "A shooting target."
+	//name = "shooting target"
+	//desc = "A shooting target."
+	name = "blanco de tiro"
+	desc = "Un blanco para practicar el tiro"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "target_h"
 	density = 0
@@ -37,7 +39,8 @@
 			var/obj/item/weapon/weldingtool/WT = W
 			if(WT.remove_fuel(0, user))
 				overlays.Cut()
-				usr << "You slice off [src]'s uneven chunks of aluminum and scorch marks."
+				//usr << "You slice off [src]'s uneven chunks of aluminum and scorch marks."
+				usr << "Has cortado el [src] en trozos desiguales de aluminio con marcas de quemaduras."
 				return
 
 
@@ -59,11 +62,12 @@
 				if(ishuman(user))
 					if(!user.get_active_hand())
 						user.put_in_hands(src)
-						user << "You take the target out of the stake."
+						//user << "You take the target out of the stake."
+						user << "Has sacado el objetivo del poste."
 				else
 					src.loc = get_turf(user)
-					user << "You take the target out of the stake."
-
+					//user << "You take the target out of the stake."
+					user << "Has sacado el objetivo del poste."
 				stake.pinned_target = null
 				return
 
@@ -72,11 +76,13 @@
 
 	syndicate
 		icon_state = "target_s"
-		desc = "A shooting target that looks like a syndicate scum."
+		//desc = "A shooting target that looks like a syndicate scum."
+		desc = "Un blanco que se parece a la escoria del sindicato"
 		hp = 2600 // i guess syndie targets are sturdier?
 	alien
 		icon_state = "target_q"
-		desc = "A shooting target that looks like a xenomorphic alien."
+		//desc = "A shooting target that looks like a xenomorphic alien."
+		desc = "Un blanco que se parece a un Alien"
 		hp = 2350 // alium onest too kinda
 
 /obj/item/target/bullet_act(var/obj/item/projectile/Proj)
@@ -96,7 +102,8 @@
 		if(hp <= 0)
 			for(var/mob/O in oviewers())
 				if ((O.client && !( O.blinded )))
-					O << "\red [src] breaks into tiny pieces and collapses!"
+					O << "\red El [src] se rompe en pequeños pedazos y se derrumba!"
+					//O << "\red [src] breaks into tiny pieces and collapses!"
 			del(src)
 
 		// Create a temporary object to represent the damage

@@ -1,7 +1,9 @@
 #define CANDLE_LUMINOSITY	2
 /obj/item/candle
-	name = "red candle"
-	desc = "a candle"
+	//name = "red candle"
+	//desc = "a candle"
+	name = "vela roja"
+	desc = "una vela"
 	icon = 'icons/obj/candle.dmi'
 	icon_state = "candle1"
 	item_state = "candle1"
@@ -10,7 +12,8 @@
 	var/wax = 200
 	var/lit = 0
 	proc
-		light(var/flavor_text = "\red [usr] lights the [name].")
+		light(var/flavor_text = "\red [usr] enciende la [name].")
+		//light(var/flavor_text = "\red [usr] lights the [name].")
 
 
 /obj/item/candle/update_icon()
@@ -28,7 +31,8 @@
 	if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
 		if(WT.isOn()) //Badasses dont get blinded by lighting their candle with a welding tool
-			light("\red [user] casually lights the [name] with [W], what a badass.")
+			//light("\red [user] casually lights the [name] with [W], what a badass.")
+			light("\red [user] enciende la [name] con [W], es un tipo duro.")
 	else if(istype(W, /obj/item/weapon/lighter))
 		var/obj/item/weapon/lighter/L = W
 		if(L.lit)
@@ -46,8 +50,8 @@
 		if(M.lit)
 			light()
 
-
-/obj/item/candle/light(var/flavor_text = "\red [usr] lights the [name].")
+///obj/item/candle/light(var/flavor_text = "\red [usr] lights the [name].")
+/obj/item/candle/light(var/flavor_text = "\red [usr] enciende la [name].")
 	if(!src.lit)
 		src.lit = 1
 		//src.damtype = "fire"

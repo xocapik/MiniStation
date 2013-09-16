@@ -1,6 +1,8 @@
 /obj/item/blueprints
-	name = "station blueprints"
-	desc = "Blueprints of the station. There's stamp \"Classified\" and several coffee stains on it."
+	//name = "station blueprints"
+	//desc = "Blueprints of the station. There's stamp \"Classified\" and several coffee stains on it."
+	name = "planos de la estación"
+	desc = "Planos de la estación. Hay un sello con el texto \"CLASIFICADO\" y varias manchas de café en él."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "blueprints"
 	attack_verb = list("attacked", "bapped", "hit")
@@ -21,7 +23,8 @@
 
 /obj/item/blueprints/attack_self(mob/M as mob)
 	if (!istype(M,/mob/living/carbon/human))
-		M << "This is stack of useless pieces of harsh paper." //monkeys cannot into projecting
+		//M << "This is stack of useless pieces of harsh paper." //monkeys cannot into projecting
+		M << "Un monton de garabatos escritos sobre papel áspero." //:D
 		return
 	interact()
 	return
@@ -46,25 +49,44 @@
 
 /obj/item/blueprints/interact()
 	var/area/A = get_area()
-	var/text = {"<HTML><head><title>[src]</title></head><BODY>
+/*	var/text = {"<HTML><head><title>[src]</title></head><BODY>
 <h2>[station_name()] blueprints</h2>
 <small>Property of Nanotrasen. For heads of staff only. Store in high-secure storage.</small><hr>
+"}*/
+	var/text = {"<HTML><head><title>[src]</title></head><BODY>
+<h2>Los planos de [station_name()] </h2>
+<small>Propiedad de Nanotrasen. Para uso exclusivo de los jefes de personal. Guardar en un almacén de alta seguridad.</small><hr>
 "}
 	switch (get_area_type())
 		if (AREA_SPACE)
-			text += {"
+/*			text += {"
 <p>According this blueprints you are in <b>open space</b> now.</p>
 <p><a href='?src=\ref[src];action=create_area'>Mark this place as new area.</a></p>
+"}*/
+			text += {"
+<p>Según los planos te encuentras en el <b>espacio</b>.</p>
+<p><a href='?src=\ref[src];action=create_area'>Marcar este lugar como nueva área.</a></p>
 "}
 		if (AREA_STATION)
-			text += {"
+/*			text += {"
 <p>According this blueprints you are in <b>[A.name]</b> now.</p>
 <p>You may <a href='?src=\ref[src];action=edit_area'>
 move an amendment</a> to the drawing.</p>
 "}
-		if (AREA_SPECIAL)
+*/
 			text += {"
+<p>Según los planos te encuentras en <b>[A.name]</b>.</p>
+<p>Puedes <a href='?src=\ref[src];action=edit_area'>
+rectificar</a> el dibujo.</p>
+"}
+
+		if (AREA_SPECIAL)
+/*			text += {"
 <p>This place isn't noted on these blueprints.</p>
+"}
+*/
+			text += {"
+<p>Este lugar no está indicado en estos planos.</p>
 "}
 		else
 			return
@@ -105,20 +127,24 @@ move an amendment</a> to the drawing.</p>
 	if(!istype(res,/list))
 		switch(res)
 			if(ROOM_ERR_SPACE)
-				usr << "\red New area must be complete airtight!"
+				//usr << "\red New area must be complete airtight!"
+				usr << "\red La nueva área debe estar herméticamente cerrada!!"
 				return
 			if(ROOM_ERR_TOOLARGE)
-				usr << "\red New area too large!"
+				//usr << "\red New area too large!"
+				usr << "\red La nueva área es demasiado grande!!"
 				return
 			else
 				usr << "\red Error! Please notify administration!"
 				return
 	var/list/turf/turfs = res
-	var/str = trim(stripped_input(usr,"New area title","Blueprints editing", "", MAX_NAME_LEN))
+	//var/str = trim(stripped_input(usr,"New area title","Blueprints editing", "", MAX_NAME_LEN))
+	var/str = trim(stripped_input(usr,"Titulo de la nueva área","Edición de planos", "", MAX_NAME_LEN))
 	if(!str || !length(str)) //cancel
 		return
 	if(length(str) > 50)
-		usr << "\red Text too long."
+		//usr << "\red Text too long."
+		usr << "\red El texto es muy largo."
 		return
 	var/area/A = new
 	A.name = str
@@ -150,16 +176,19 @@ move an amendment</a> to the drawing.</p>
 	var/area/A = get_area()
 	//world << "DEBUG: edit_area"
 	var/prevname = A.name
-	var/str = trim(stripped_input(usr,"New area title","Blueprints editing", prevname, MAX_NAME_LEN))
+	//var/str = trim(stripped_input(usr,"New area title","Blueprints editing", prevname, MAX_NAME_LEN))
+	var/str = trim(stripped_input(usr,"Titulo de la nueva área","Edición de planos", prevname, MAX_NAME_LEN))
 	if(!str || !length(str) || str==prevname) //cancel
 		return
 	if(length(str) > 50)
-		usr << "\red Text too long."
+		//usr << "\red Text too long."
+		usr << "\red El texto es muy largo."
 		return
 	set_area_machinery_title(A,str,prevname)
 	for(var/area/RA in A.related)
 		RA.name = str
-	usr << "\blue You set the area '[prevname]' title to '[str]'."
+	//usr << "\blue You set the area '[prevname]' title to '[str]'."
+	usr << "\blue Has cambiado el titulo del área '[prevname]' a '[str]'."
 	interact()
 	return
 

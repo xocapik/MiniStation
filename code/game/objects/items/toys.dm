@@ -23,8 +23,10 @@
  * Balloons
  */
 /obj/item/toy/balloon
-	name = "water balloon"
-	desc = "A translucent balloon. There's nothing in it."
+	//name = "water balloon"
+	//desc = "A translucent balloon. There's nothing in it."
+	name = "globo de agua"
+	desc = "Un globo translúcido. Esta vacio."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "waterballoon-e"
 	item_state = "balloon-empty"
@@ -38,8 +40,10 @@
 /obj/item/toy/balloon/afterattack(atom/A as mob|obj, mob/user as mob)
 	if (istype(A, /obj/structure/reagent_dispensers/watertank) && get_dist(src,A) <= 1)
 		A.reagents.trans_to(src, 10)
-		user << "\blue You fill the balloon with the contents of [A]."
-		src.desc = "A translucent balloon with some form of liquid sloshing around in it."
+//		user << "\blue You fill the balloon with the contents of [A]."
+//		src.desc = "A translucent balloon with some form of liquid sloshing around in it."
+		user << "\blue Llenas el globo con el contenido de [A]."
+		src.desc = "Un globo translúcido con algún tipo de liquido."
 		src.update_icon()
 	return
 
@@ -47,22 +51,27 @@
 	if(istype(O, /obj/item/weapon/reagent_containers/glass))
 		if(O.reagents)
 			if(O.reagents.total_volume < 1)
-				user << "The [O] is empty."
+				//user << "The [O] is empty."
+				user << "El [O] esta vacio."
 			else if(O.reagents.total_volume >= 1)
 				if(O.reagents.has_reagent("pacid", 1))
-					user << "The acid chews through the balloon!"
+					//user << "The acid chews through the balloon!"
+					user << "El ácido a derretido el globo!"
 					O.reagents.reaction(user)
 					del(src)
 				else
-					src.desc = "A translucent balloon with some form of liquid sloshing around in it."
-					user << "\blue You fill the balloon with the contents of [O]."
+					//src.desc = "A translucent balloon with some form of liquid sloshing around in it."
+					//user << "\blue You fill the balloon with the contents of [O]."
+					user << "\blue Llenas el globo con el contenido de [O]."
+					src.desc = "Un globo translúcido con algún tipo de liquido."
 					O.reagents.trans_to(src, 10)
 	src.update_icon()
 	return
 
 /obj/item/toy/balloon/throw_impact(atom/hit_atom)
 	if(src.reagents.total_volume >= 1)
-		src.visible_message("\red The [src] bursts!","You hear a pop and a splash.")
+		//src.visible_message("\red The [src] bursts!","You hear a pop and a splash.")
+		src.visible_message("\red El [src] explota!","Escuchas un POP! y una salpicadura.")
 		src.reagents.reaction(get_turf(hit_atom))
 		for(var/atom/A in get_turf(hit_atom))
 			src.reagents.reaction(A)
@@ -81,8 +90,10 @@
 		item_state = "balloon-empty"
 
 /obj/item/toy/syndicateballoon
-	name = "syndicate balloon"
-	desc = "There is a tag on the back that reads \"FUK NT!11!\"."
+	//name = "syndicate balloon"
+	//desc = "There is a tag on the back that reads \"FUK NT!11!\"."
+	name = "globo del sindicato"
+	desc = "Hay una etiqueta en la parte posterior que dice \"FUK NT!11!\"."
 	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
@@ -96,8 +107,10 @@
  * Fake telebeacon
  */
 /obj/item/toy/blink
-	name = "electronic blink toy game"
-	desc = "Blink.  Blink.  Blink. Ages 8 and up."
+	//name = "electronic blink toy game"
+	//desc = "Blink.  Blink.  Blink. Ages 8 and up."
+	name = "Juego electronico Blink!"
+	desc = "Blink.  Blink.  Blink. Edad recomendada 8 años."
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "beacon"
 	item_state = "signaler"
@@ -106,8 +119,10 @@
  * Fake singularity
  */
 /obj/item/toy/spinningtoy
+	//name = "Gravitational Singularity"
+	//desc = "\"Singulo\" brand spinning toy."
 	name = "Gravitational Singularity"
-	desc = "\"Singulo\" brand spinning toy."
+	desc = "\"Singulo\" una peonza."
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "singularity_s1"
 
@@ -115,8 +130,10 @@
  * Toy gun: Why isnt this an /obj/item/weapon/gun?
  */
 /obj/item/toy/gun
-	name = "cap gun"
-	desc = "There are 0 caps left. Looks almost like the real thing! Ages 8 and up. Please recycle in an autolathe when you're out of caps!"
+//	name = "cap gun"
+//	desc = "There are 0 caps left. Looks almost like the real thing! Ages 8 and up. Please recycle in an autolathe when you're out of caps!"
+	name = "pistlola de petardos"
+	desc = "Le quedan 0 petardos. Parece una de verdad! Para mayores de 8 años. Por favor, reciclar en un torno cuando te quedes sin petardos!"
 	icon = 'icons/obj/gun.dmi'
 	icon_state = "revolver"
 	item_state = "gun"
@@ -131,7 +148,8 @@
 	examine()
 		set src in usr
 
-		src.desc = text("There are [] caps\s left. Looks almost like the real thing! Ages 8 and up.", src.bullets)
+		//src.desc = text("There are [] caps\s left. Looks almost like the real thing! Ages 8 and up.", src.bullets)
+		src.desc = text("Le quedan [] petardo\s . Parece una de verdad! Para mayores de 8 años.", src.bullets)
 		..()
 		return
 
@@ -139,17 +157,21 @@
 
 		if (istype(A, /obj/item/toy/ammo/gun))
 			if (src.bullets >= 7)
-				user << "\blue It's already fully loaded!"
+				//user << "\blue It's already fully loaded!"
+				user << "\blue Ya esta complemente cargada!"
 				return 1
 			if (A.amount_left <= 0)
-				user << "\red There is no more caps!"
+				//user << "\red There is no more caps!"
+				user << "\red No le quedan petardos!"
 				return 1
 			if (A.amount_left < (7 - src.bullets))
 				src.bullets += A.amount_left
-				user << text("\red You reload [] caps\s!", A.amount_left)
+				//user << text("\red You reload [] caps\s!", A.amount_left)
+				user << text("\red Has recargado [] petardo\s!", A.amount_left)
 				A.amount_left = 0
 			else
-				user << text("\red You reload [] caps\s!", 7 - src.bullets)
+				//user << text("\red You reload [] caps\s!", 7 - src.bullets)
+				user << text("\red Has recargado [] petardo\s!", 7 - src.bullets)
 				A.amount_left -= 7 - src.bullets
 				src.bullets = 7
 			A.update_icon()
@@ -160,7 +182,8 @@
 		if (flag)
 			return
 		if (!(istype(usr, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
-			usr << "\red You don't have the dexterity to do this!"
+			//usr << "\red You don't have the dexterity to do this!"
+			usr << "\red No posees la destreza suficiente para hacer esto!"
 			return
 		src.add_fingerprint(user)
 		if (src.bullets < 1)
@@ -169,11 +192,14 @@
 		playsound(user, 'sound/weapons/Gunshot.ogg', 100, 1)
 		src.bullets--
 		for(var/mob/O in viewers(user, null))
-			O.show_message(text("\red <B>[] fires a cap gun at []!</B>", user, target), 1, "\red You hear a gunshot", 2)
+			O.show_message(text("\red <B>[] dispara con la pistola de pertardos a []!</B>", user, target), 1, "\red Has oido un disparo", 2)
+			//O.show_message(text("\red <B>[] fires a cap gun at []!</B>", user, target), 1, "\red You hear a gunshot", 2)
 
 /obj/item/toy/ammo/gun
-	name = "ammo-caps"
-	desc = "There are 7 caps left! Make sure to recyle the box in an autolathe when it gets empty."
+	//name = "ammo-caps"
+	//desc = "There are 7 caps left! Make sure to recyle the box in an autolathe when it gets empty."
+	name = "petardos-munición"
+	desc = "Quedan 7 petardos! Asegurate de reciclar la caja cuando se quede vacia."
 	icon = 'icons/obj/ammo.dmi'
 	icon_state = "357-7"
 	flags = FPRINT | TABLEPASS| CONDUCT
@@ -184,7 +210,8 @@
 
 	update_icon()
 		src.icon_state = text("357-[]", src.amount_left)
-		src.desc = text("There are [] caps\s left! Make sure to recycle the box in an autolathe when it gets empty.", src.amount_left)
+		//src.desc = text("There are [] caps\s left! Make sure to recycle the box in an autolathe when it gets empty.", src.amount_left)
+		src.desc = text("Quedan [] petardos! Asegurate de reciclar la caja cuando se quede vacia.", src.amount_left)
 		return
 
 /*
@@ -192,8 +219,10 @@
  */
 
 /obj/item/toy/crossbow
-	name = "foam dart crossbow"
-	desc = "A weapon favored by many overactive children. Ages 8 and up."
+	//name = "foam dart crossbow"
+	//desc = "A weapon favored by many overactive children. Ages 8 and up."
+	name = "ballesta de dardos de espuma"
+	desc = "El arma favorita de los niños hiperactivos. Para mayores de 8 años"
 	icon = 'icons/obj/gun.dmi'
 	icon_state = "crossbow"
 	item_state = "crossbow"
@@ -206,17 +235,19 @@
 		set src in view(2)
 		..()
 		if (bullets)
-			usr << "\blue It is loaded with [bullets] foam darts!"
-
+			//usr << "\blue It is loaded with [bullets] foam darts!"
+			usr << "\blue Esta cargada con [bullets] dardos de espuma!"
 	attackby(obj/item/I as obj, mob/user as mob)
 		if(istype(I, /obj/item/toy/ammo/crossbow))
 			if(bullets <= 4)
 				user.drop_item()
 				del(I)
 				bullets++
-				user << "\blue You load the foam dart into the crossbow."
+				//user << "\blue You load the foam dart into the crossbow."
+				user << "\blue Cargas el dardo de espuma en la ballesta."
 			else
-				usr << "\red It's already fully loaded."
+				//usr << "\red It's already fully loaded."
+				usr << "\red Ya esta completamente cargada."
 
 
 	afterattack(atom/target as mob|obj|turf|area, mob/user as mob, flag)
@@ -242,7 +273,8 @@
 						if(!istype(M,/mob/living)) continue
 						if(M == user) continue
 						for(var/mob/O in viewers(world.view, D))
-							O.show_message(text("\red [] was hit by the foam dart!", M), 1)
+							O.show_message(text("\red [] ha sido golpeado con un dardo de espuma!", M), 1)
+							//O.show_message(text("\red [] was hit by the foam dart!", M), 1)
 						new /obj/item/toy/ammo/crossbow(M.loc)
 						del(D)
 						return
@@ -264,7 +296,8 @@
 		else if (bullets == 0)
 			user.Weaken(5)
 			for(var/mob/O in viewers(world.view, user))
-				O.show_message(text("\red [] realized they were out of ammo and starting scrounging for some!", user), 1)
+				O.show_message(text("\red [] se ha dado cuenta de que se ha quedado sin munición y a comenzado a gorronear alguna!", user), 1)
+				//O.show_message(text("\red [] realized they were out of ammo and starting scrounging for some!", user), 1)
 
 
 	attack(mob/M as mob, mob/user as mob)
@@ -276,21 +309,26 @@
 
 			for(var/mob/O in viewers(M, null))
 				if(O.client)
-					O.show_message(text("\red <B>[] casually lines up a shot with []'s head and pulls the trigger!</B>", user, M), 1, "\red You hear the sound of foam against skull", 2)
-					O.show_message(text("\red [] was hit in the head by the foam dart!", M), 1)
-
+					//O.show_message(text("\red <B>[] casually lines up a shot with []'s head and pulls the trigger!</B>", user, M), 1, "\red You hear the sound of foam against skull", 2)
+					//O.show_message(text("\red [] was hit in the head by the foam dart!", M), 1)
+					O.show_message(text("\red <B>[] apunta a la cabeza de [] y aprieta el gatillo!</B>", user, M), 1, "\red Se oye el sonido de la espuma contra el cráneo ", 2)
+					O.show_message(text("\red [] fue golpeado en la cabeza con el dardo de espuma!", M), 1)
 			playsound(user.loc, 'sound/items/syringeproj.ogg', 50, 1)
 			new /obj/item/toy/ammo/crossbow(M.loc)
 			src.bullets--
 		else if (M.lying && src.bullets == 0)
 			for(var/mob/O in viewers(M, null))
-				if (O.client)	O.show_message(text("\red <B>[] casually lines up a shot with []'s head, pulls the trigger, then realizes they are out of ammo and drops to the floor in search of some!</B>", user, M), 1, "\red You hear someone fall", 2)
+				if (O.client)
+					//O.show_message(text("\red <B>[] casually lines up a shot with []'s head, pulls the trigger, then realizes they are out of ammo and drops to the floor in search of some!</B>", user, M), 1, "\red You hear someone fall", 2)
+					O.show_message(text("\red <B>[] apunta a la cabeza de [] y aprieta el gatillo, seguidamente se ha dado cuenta de que se ha quedado sin munición y se ha tirado al suelo en busca de alguna!</B>", user, M), 1, "\red Has oido a alguien caer", 2)
 			user.Weaken(5)
 		return
 
 /obj/item/toy/ammo/crossbow
-	name = "foam dart"
-	desc = "Its nerf or nothing! Ages 8 and up."
+	//name = "foam dart"
+	//desc = "Its nerf or nothing! Ages 8 and up."
+	name = "dardo de espuma"
+	desc = "Es NERF o NADA! Para mayores de 8 años."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "foamdart"
 	flags = FPRINT | TABLEPASS
@@ -309,8 +347,10 @@
  * Toy swords
  */
 /obj/item/toy/sword
-	name = "toy sword"
-	desc = "A cheap, plastic replica of an energy sword. Realistic sounds! Ages 8 and up."
+	//name = "toy sword"
+	//desc = "A cheap, plastic replica of an energy sword. Realistic sounds! Ages 8 and up."
+	name = "espada de jugete"
+	desc = "Una barata replica de plastico de una espada de energia. Con sonidos reales! Para mayores de 8 años."
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "sword0"
 	item_state = "sword0"
@@ -322,13 +362,15 @@
 	attack_self(mob/user as mob)
 		src.active = !( src.active )
 		if (src.active)
-			user << "\blue You extend the plastic blade with a quick flick of your wrist."
+			//user << "\blue You extend the plastic blade with a quick flick of your wrist."
+			user << "\blue Extiendes la hoja con un rápido movimiento de muñeca."
 			playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
 			src.icon_state = "swordblue"
 			src.item_state = "swordblue"
 			src.w_class = 4
 		else
-			user << "\blue You push the plastic blade back down into the handle."
+			//user << "\blue You push the plastic blade back down into the handle."
+			user << "\blue Empujas la hoja hacia abajo hasta esconderla en el mango."
 			playsound(user, 'sound/weapons/saberoff.ogg', 50, 1)
 			src.icon_state = "sword0"
 			src.item_state = "sword0"
@@ -337,8 +379,10 @@
 		return
 
 /obj/item/toy/katana
-	name = "replica katana"
-	desc = "Woefully underpowered in D20."
+	//name = "replica katana"
+	//desc = "Woefully underpowered in D20."
+	name = "replica de una katana"
+	desc = "Tristemente underpowered en D20."
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "katana"
 	item_state = "katana"
@@ -354,8 +398,10 @@
  */
 
 /obj/item/toy/crayon
-	name = "crayon"
-	desc = "A colourful crayon. Looks tasty. Mmmm..."
+	//name = "crayon"
+	//desc = "A colourful crayon. Looks tasty. Mmmm..."
+	name = "lápiz"
+	desc = "Un colorido lápiz. Parece delicioso. Mmmm..."
 	icon = 'icons/obj/crayons.dmi'
 	icon_state = "crayonred"
 	w_class = 1.0
@@ -367,14 +413,18 @@
 	var/colourName = "red" //for updateIcon purposes
 
 	suicide_act(mob/user)
-		viewers(user) << "\red <b>[user] is jamming the [src.name] up \his nose and into \his brain. It looks like \he's trying to commit suicide.</b>"
+		//viewers(user) << "\red <b>[user] is jamming the [src.name] up \his nose and into \his brain. It looks like \he's trying to commit suicide.</b>"
+		viewers(user) << "\red <b>[user] esta introduciendo el [src.name] en \his nariz llegando a \his cerebro. Parece que \he's intenta suicidar.</b>"
+
 		return (BRUTELOSS|OXYLOSS)
 
 /*
  * Snap pops
  */
 /obj/item/toy/snappop
-	name = "snap pop"
+	//name = "snap pop"
+	//desc = "Wow!"
+	name = "bombetas"
 	desc = "Wow!"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "snappop"
@@ -386,7 +436,8 @@
 		s.set_up(3, 1, src)
 		s.start()
 		new /obj/effect/decal/cleanable/ash(src.loc)
-		src.visible_message("\red The [src.name] explodes!","\red You hear a snap!")
+		//src.visible_message("\red The [src.name] explodes!","\red You hear a snap!")
+		src.visible_message("\red La [src.name] explota!","\red Se oye un pequeño estallido!")
 		playsound(src, 'sound/effects/snap.ogg', 50, 1)
 		del(src)
 
@@ -394,13 +445,14 @@
 	if((ishuman(H))) //i guess carp and shit shouldn't set them off
 		var/mob/living/carbon/M = H
 		if(M.m_intent == "run")
-			M << "\red You step on the snap pop!"
-
+			//M << "\red You step on the snap pop!"
+			M << "\red Has pisado una bombeta!"
 			var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 			s.set_up(2, 0, src)
 			s.start()
 			new /obj/effect/decal/cleanable/ash(src.loc)
-			src.visible_message("\red The [src.name] explodes!","\red You hear a snap!")
+			//src.visible_message("\red The [src.name] explodes!","\red You hear a snap!")
+			src.visible_message("\red La [src.name] explota!","\red Se oye un pequeño estallido!")
 			playsound(src, 'sound/effects/snap.ogg', 50, 1)
 			del(src)
 
@@ -415,69 +467,93 @@
 //all credit to skasi for toy mech fun ideas
 /obj/item/toy/prize/attack_self(mob/user as mob)
 	if(cooldown < world.time - 8)
-		user << "<span class='notice'>You play with [src].</span>"
+		//user << "<span class='notice'>You play with [src].</span>"
+		user << "<span class='notice'>Juegas con el [src].</span>"
 		playsound(user, 'sound/mecha/mechstep.ogg', 20, 1)
 		cooldown = world.time
 
 /obj/item/toy/prize/attack_hand(mob/user as mob)
 	if(loc == user)
 		if(cooldown < world.time - 8)
-			user << "<span class='notice'>You play with [src].</span>"
+			//user << "<span class='notice'>You play with [src].</span>"
+			user << "<span class='notice'>Juegas con el [src].</span>"
 			playsound(user, 'sound/mecha/mechturn.ogg', 20, 1)
 			cooldown = world.time
 			return
 	..()
 
 /obj/item/toy/prize/ripley
-	name = "toy ripley"
-	desc = "Mini-Mecha action figure! Collect them all! 1/11."
+	//name = "toy ripley"
+	//desc = "Mini-Mecha action figure! Collect them all! 1/11."
+	name = "jugete ripley"
+	desc = "Figura de acción Mini-Mecha! ¡Hazte con todos! 1/11."
 
 /obj/item/toy/prize/fireripley
-	name = "toy firefighting ripley"
-	desc = "Mini-Mecha action figure! Collect them all! 2/11."
+	//name = "toy firefighting ripley"
+	//desc = "Mini-Mecha action figure! Collect them all! 2/11."
+	name = "jugete firefighting ripley"
+	desc = "Figura de acción Mini-Mecha! ¡Hazte con todos! 2/11."
 	icon_state = "fireripleytoy"
 
 /obj/item/toy/prize/deathripley
-	name = "toy deathsquad ripley"
-	desc = "Mini-Mecha action figure! Collect them all! 3/11."
+	//name = "toy deathsquad ripley"
+	//desc = "Mini-Mecha action figure! Collect them all! 3/11."
+	name = "jugete deathsquad ripley"
+	desc = "Figura de acción Mini-Mecha! ¡Hazte con todos! 3/11."
 	icon_state = "deathripleytoy"
 
 /obj/item/toy/prize/gygax
-	name = "toy gygax"
-	desc = "Mini-Mecha action figure! Collect them all! 4/11."
+	//name = "toy gygax"
+	//desc = "Mini-Mecha action figure! Collect them all! 4/11."
+	name = "jugete gygax"
+	desc = "Figura de acción Mini-Mecha! ¡Hazte con todos! 4/11."
 	icon_state = "gygaxtoy"
 
 /obj/item/toy/prize/durand
-	name = "toy durand"
-	desc = "Mini-Mecha action figure! Collect them all! 5/11."
+	//name = "toy durand"
+	//desc = "Mini-Mecha action figure! Collect them all! 5/11."
+	name = "jugete durand"
+	desc = "Figura de acción Mini-Mecha! ¡Hazte con todos! 5/11."
 	icon_state = "durandprize"
 
 /obj/item/toy/prize/honk
-	name = "toy H.O.N.K."
-	desc = "Mini-Mecha action figure! Collect them all! 6/11."
+	//name = "toy H.O.N.K."
+	//desc = "Mini-Mecha action figure! Collect them all! 6/11."
+	name = "jugete H.O.N.K."
+	desc = "Figura de acción Mini-Mecha! ¡Hazte con todos! 6/11."
 	icon_state = "honkprize"
 
 /obj/item/toy/prize/marauder
-	name = "toy marauder"
-	desc = "Mini-Mecha action figure! Collect them all! 7/11."
+	//name = "toy marauder"
+	//desc = "Mini-Mecha action figure! Collect them all! 7/11."
+	name = "jugete marauder"
+	desc = "Figura de acción Mini-Mecha! ¡Hazte con todos! 7/11."
 	icon_state = "marauderprize"
 
 /obj/item/toy/prize/seraph
-	name = "toy seraph"
-	desc = "Mini-Mecha action figure! Collect them all! 8/11."
+	//name = "toy seraph"
+	//desc = "Mini-Mecha action figure! Collect them all! 8/11."
+	name = "jugete seraph"
+	desc = "Figura de acción Mini-Mecha! ¡Hazte con todos! 8/11."
 	icon_state = "seraphprize"
 
 /obj/item/toy/prize/mauler
-	name = "toy mauler"
-	desc = "Mini-Mecha action figure! Collect them all! 9/11."
+	//name = "toy mauler"
+	//desc = "Mini-Mecha action figure! Collect them all! 9/11."
+	name = "jugete mauler"
+	desc = "Figura de acción Mini-Mecha! ¡Hazte con todos! 9/11."
 	icon_state = "maulerprize"
 
 /obj/item/toy/prize/odysseus
-	name = "toy odysseus"
-	desc = "Mini-Mecha action figure! Collect them all! 10/11."
+	//name = "toy odysseus"
+	//desc = "Mini-Mecha action figure! Collect them all! 10/11."
+	name = "jugete odysseus"
+	desc = "Figura de acción Mini-Mecha! ¡Hazte con todos! 10/11."
 	icon_state = "odysseusprize"
 
 /obj/item/toy/prize/phazon
-	name = "toy phazon"
-	desc = "Mini-Mecha action figure! Collect them all! 11/11."
+	//name = "toy phazon"
+	//desc = "Mini-Mecha action figure! Collect them all! 11/11."
+	name = "jugete phazon"
+	desc = "Figura de acción Mini-Mecha! ¡Hazte con todos! 11/11."
 	icon_state = "phazonprize"

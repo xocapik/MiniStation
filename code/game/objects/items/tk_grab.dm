@@ -1,8 +1,10 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
 
 /obj/item/tk_grab
-	name = "Telekinetic Grab"
-	desc = "Magic"
+//	name = "Telekinetic Grab"
+//	desc = "Magic"
+	name = "Agarre telequinético"
+	desc = "Magia"
 	icon = 'icons/obj/magic.dmi'//Needs sprites
 	icon_state = "2"
 	flags = USEDELAY
