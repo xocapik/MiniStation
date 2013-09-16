@@ -1,0 +1,9 @@
+Opciones de nuevo jugador
+Configurar Personaje
+Estoy preparado
+Estas preparado
+Cancelar
+Unirse a la partida
+Observar
+Español
+English

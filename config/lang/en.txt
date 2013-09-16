@@ -1,0 +1,9 @@
+New player options
+Setup Character
+Declare Ready
+You are ready
+Cancel
+Join Game
+Observe
+Español
+English

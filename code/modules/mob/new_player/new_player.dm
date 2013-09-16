@@ -20,16 +20,22 @@
 
 	proc/new_player_panel()
 
-		var/output = "<center><p><a href='byond://?src=\ref[src];show_preferences=1'>Setup Character</A></p>"
+		var/output = "<center><p><a href='byond://?src=\ref[src];show_preferences=1'>" + client.langGetString(R_SETUP_CHARACTER) + "</A></p>"
 
 		if(!ticker || ticker.current_state <= GAME_STATE_PREGAME)
-			if(!ready)	output += "<p><a href='byond://?src=\ref[src];ready=1'>Declare Ready</A></p>"
-			else	output += "<p><b>You are ready</b> <a href='byond://?src=\ref[src];ready=2'>Cancel</A></p>"
+			if(!ready)	output += "<p><a href='byond://?src=\ref[src];ready=1'>" + client.langGetString(R_DECLARE_READY) + "</A></p>"
+			else	output += "<p><b>" + client.langGetString(R_YOU_READY) + "</b> <a href='byond://?src=\ref[src];ready=2'>" + client.langGetString(R_CANCEL) + "</A></p>"
 
 		else
-			output += "<p><a href='byond://?src=\ref[src];late_join=1'>Join Game!</A></p>"
+			output += "<p><a href='byond://?src=\ref[src];late_join=1'>" + client.langGetString(R_JOIN_GAME) + "</A></p>"
 
-		output += "<p><a href='byond://?src=\ref[src];observe=1'>Observe</A></p>"
+		output += "<p><a href='byond://?src=\ref[src];observe=1'>" + client.langGetString(R_OBSERVE) + "</A></p>"
+
+		if (client.prefs.lang==0)
+			output += "<p><b>" + client.langGetString(R_SPANISH) + "</b> <a href='byond://?src=\ref[src];lang_en=1'>" + client.langGetString(R_ENGLISH) + "</A></p>"
+		else
+			output += "<p><a href='byond://?src=\ref[src];lang_es=1'>" + client.langGetString(R_SPANISH) + "</A> <b>" + client.langGetString(R_ENGLISH) + "</b></p>"
+
 
 		if(!IsGuestKey(src.key))
 			establish_db_connection()
@@ -53,7 +59,7 @@
 		output += "</center>"
 
 		//src << browse(output,"window=playersetup;size=210x240;can_close=0")
-		var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 210, 240)
+		var/datum/browser/popup = new(src, "playersetup", "<div align='center'>" + client.langGetString(R_NEW_PLAYER_OPTIONS) + "</div>", 240, 240)
 		popup.set_window_options("can_close=0")
 		popup.set_content(output)
 		popup.open(0)
@@ -95,6 +101,12 @@
 
 		if(href_list["ready"])
 			ready = !ready
+
+		if(href_list["lang_es"])
+			client.prefs.lang = 0
+
+		if(href_list["lang_en"])
+			client.prefs.lang = 1
 
 		if(href_list["refresh"])
 			src << browse(null, "window=playersetup") //closes the player setup window
@@ -312,10 +324,10 @@
 					position_class = "commandPosition"
 				dat += "<a class='[position_class]' href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions])</a><br>"
 		dat += "</div></div>"
-		
+
 		// Removing the old window method but leaving it here for reference
 		//src << browse(dat, "window=latechoices;size=300x640;can_close=1")
-		
+
 		// Added the new browser window method
 		var/datum/browser/popup = new(src, "latechoices", "Choose Profession", 440, 500)
 		popup.add_stylesheet("playeroptions", 'html/browser/playeroptions.css')

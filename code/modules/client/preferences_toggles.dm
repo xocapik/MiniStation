@@ -141,3 +141,15 @@ var/list/ghost_forms = list("ghost","ghostking","ghostian2")
 		prefs.save_preferences()
 		if(istype(mob,/mob/dead/observer))
 			mob.icon_state = new_form
+
+/client/verb/toggle_lang()
+	set name = "Toggle lang"
+	set category = "Preferences"
+	set desc = "Cambia el idioma."
+	if(prefs.lang==0)
+		prefs.lang=1
+		src << "Ingles"
+	else
+		prefs.lang=0
+		src << "Español"
+	prefs.save_preferences()
